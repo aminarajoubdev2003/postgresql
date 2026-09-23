@@ -3,7 +3,7 @@ CREATE TABLE books(
     title VARCHAR(100) NOT NULL UNIQUE CHECK (title ~ '^[\u0621-\u064A\s]+$'),
     author  VARCHAR(100) NOT NULL CHECK (author ~ '^[\u0621-\u064A\s]+$'),
     total_copies  INTEGER NOT NULL CHECK (total_copies > 0),
-    available_copies  INTEGER NOT NULL CHECK (available_copies > 0)
+    available_copies  INTEGER NOT NULL CHECK (available_copies >= 0)
 );
 
 INSERT INTO books (title,author,total_copies,available_copies) VALUES
@@ -18,7 +18,7 @@ CREATE TABLE borrowings (
     book_id INTEGER REFERENCES books(id),
     borrow_date DATE DEFAULT CURRENT_DATE,
     due_date DATE CHECK (due_date >= borrow_date),
-    return_date DATE DEFAULT NULL CHECK (return_date >= due_date),
+    return_date DATE DEFAULT NULL CHECK (return_date >= borrow_date),
     fine  INTEGER DEFAULT 0
 );
 

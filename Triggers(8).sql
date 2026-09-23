@@ -31,4 +31,4 @@ $$;
 CREATE TRIGGER after_borrowing_insert AFTER INSERT ON borrowings FOR EACH ROW EXECUTE FUNCTION decrement_available_copies();
 
 INSERT INTO borrowings (user_id,book_id,due_date) VALUES
-(2,3,'2026-10-5')
+(2,3,'2026-10-5');
