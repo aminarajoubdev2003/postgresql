@@ -19,6 +19,9 @@ INSERT INTO users (full_name, email, phone)
 VALUES ('Khaled', 'khaled@example.com', '0955555555');
 
 -------------------------------------------------------------------------------------------------------------
+UPDATE books SET available_copies = books.total_copies - ( SELECT COUNT(*) FROM borrowings
+    WHERE borrowings.book_id = books.id AND borrowings.return_date IS NULL
+);
 
 CREATE OR REPLACE FUNCTION decrement_available_copies() RETURNS TRIGGER LANGUAGE plpgsql
 AS $$
